@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Data Validator (Offline)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <h1>Payroll Data Validator (Offline)</h1>
+    <p>Upload a payroll Excel file, verify net pay calculations, and get an audit report instantly.</p>
+
+    <div class="row">
+      <label for="fileInput">Select payroll file (.xlsx):</label>
+      <input id="fileInput" type="file" accept=".xlsx" />
+    </div>
+
+    <div class="row">
+      <label for="sheetSelect">Choose sheet:</label>
+      <select id="sheetSelect" disabled></select>
+      <button id="loadSheetBtn" disabled>Load Data</button>
+    </div>
+
+    <div class="row">
+      <button id="analyzeBtn" disabled>Verify Payroll</button>
+      <button id="exportBtn" disabled>Export Report (CSV)</button>
+    </div>
+
+    <section id="summary" class="hidden"></section>
+    <section id="issues" class="hidden"></section>
+    <section id="dataPreview" class="hidden"></section>
+
+    <aside class="note">
+      <strong>Offline requirement:</strong> place SheetJS library in <code>libs/xlsx.full.min.js</code>.
+    </aside>
+
+  </main>
+
+  <script src="libs/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
