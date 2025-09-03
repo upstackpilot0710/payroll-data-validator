@@ -5,7 +5,7 @@ Standalone vanilla JavaScript payroll verification tool using SheetJS.
 ## 📦 Project Overview
 
 - Uses `SheetJS (xlsx)` for offline Excel (.xlsx) parsing.
-- Validates payroll rows for required fields and net pay accuracy (`Gross Pay - Deductions === Net Pay`).
+- Validates payroll rows for required fields and net pay accuracy (`(Base_Salary + Bonus) - (Tax_Deduction + Other_Deductions) === Net_Pay`).
 - Shows summary, detailed issues, and row preview.
 - Exports verification report as CSV.
 
@@ -34,12 +34,13 @@ Standalone vanilla JavaScript payroll verification tool using SheetJS.
 
 ## 🧾 Expected column headers
 
-- `Employee ID`
-- `Name`
-- `Pay Period`
-- `Gross Pay`
-- `Deductions`
-- `Net Pay`
+- `Employee_ID`
+- `Employee_Name`
+- `Base_Salary`
+- `Bonus`
+- `Tax_Deduction`
+- `Other_Deductions`
+- `Net_Pay`
 
 > Case exact headers matter. Header names must match exactly.
 
@@ -47,7 +48,7 @@ Standalone vanilla JavaScript payroll verification tool using SheetJS.
 
 - Missing required columns / values are flagged as "Missing fields".
 - Non-numeric values in numeric columns are flagged as "Invalid numeric data".
-- Net pay mismatch is flagged if `abs((Gross Pay - Deductions) - Net Pay) > 0.01`.
+- Net pay mismatch is flagged if `abs((Base_Salary + Bonus) - (Tax_Deduction + Other_Deductions) - Net_Pay) > 0.01`.
 
 ## 🛠️ Optional local server
 

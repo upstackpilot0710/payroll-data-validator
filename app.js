@@ -68,7 +68,7 @@ function parseNumber(value) {
 }
 
 function verifyRows(data) {
-  const required = ['Employee ID', 'Name', 'Pay Period', 'Gross Pay', 'Deductions', 'Net Pay'];
+  const required = ['Employee_ID', 'Employee_Name', 'Base_Salary', 'Bonus', 'Tax_Deduction', 'Other_Deductions', 'Net_Pay'];
   const issues = [];
   let valid = 0, invalid = 0, missing = 0;
 
@@ -80,16 +80,20 @@ function verifyRows(data) {
       return;
     }
 
-    const gross = parseNumber(row['Gross Pay']);
-    const deductions = parseNumber(row['Deductions']);
-    const net = parseNumber(row['Net Pay']);
+    const baseSalary = parseNumber(row['Base_Salary']);
+    const bonus = parseNumber(row['Bonus']);
+    const taxDeduction = parseNumber(row['Tax_Deduction']);
+    const otherDeductions = parseNumber(row['Other_Deductions']);
+    const net = parseNumber(row['Net_Pay']);
 
-    if ([gross, deductions, net].some(Number.isNaN)) {
+    if ([baseSalary, bonus, taxDeduction, otherDeductions, net].some(Number.isNaN)) {
       invalid += 1;
-      issues.push({ rowIndex: idx, type: 'Invalid numeric data', message: 'Gross Pay/Deductions/Net Pay must be numbers.' });
+      issues.push({ rowIndex: idx, type: 'Invalid numeric data', message: 'Base_Salary, Bonus, Tax_Deduction, Other_Deductions, Net_Pay must be numbers.' });
       return;
     }
 
+    const gross = baseSalary + bonus;
+    const deductions = taxDeduction + otherDeductions;
     const calcNet = gross - deductions;
     if (Math.abs(calcNet - net) > 0.01) {
       invalid += 1;
